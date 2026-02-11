@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Sahifa topilmadi | tezshare</title>
+    <style>
+        /* CSS dizayn */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 500px;
+        }
+        .error-code {
+            font-size: 130px;
+            font-weight: 900;
+            color: #007bff;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 5px 5px 0px #dee2e6;
+        }
+        h1 { font-size: 26px; margin-bottom: 15px; color: #212529; }
+        p { font-size: 18px; color: #6c757d; margin-bottom: 30px; line-height: 1.6; }
+        .btn {
+            text-decoration: none;
+            background: #007bff;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+        }
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+        }
+        #countdown { font-weight: bold; color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>Kechirasiz, sahifa topilmadi!</h1>
+        <p>Marufjon bu sahifa mavjud emasligini aytmoqda. <br> 
+           Siz <span id="countdown">10</span> soniyadan so'ng asosiy sahifaga qaytasiz.</p>
+        <a href="/" class="btn">Bosh sahifaga qaytish</a>
+    </div>
+
+    <script>
+        /* JS - Avtomatik qaytish taymeri */
+        let seconds = 10;
+        const countdownEl = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = "/";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>

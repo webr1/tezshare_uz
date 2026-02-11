@@ -482,3 +482,11 @@ def robots_txt(request):
         "Sitemap: https://tezsend.uz/sitemap.xml", # Sayt xaritasi havolasi
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+
+# views.py
+from django.shortcuts import render
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
