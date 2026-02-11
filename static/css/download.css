@@ -1,0 +1,793 @@
+/* ============================================
+   Download Page Styles
+   ============================================ */
+
+.download-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* ============================================
+   Header Section
+   ============================================ */
+
+.download-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header-icon {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+    border-radius: 24px;
+    font-size: 3rem;
+    color: var(--white);
+    box-shadow: 0 10px 40px rgba(6, 182, 212, 0.4);
+    animation: downloadPulse 3s ease-in-out infinite;
+}
+
+@keyframes downloadPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 40px rgba(6, 182, 212, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 50px rgba(6, 182, 212, 0.6);
+    }
+}
+
+.icon-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+    border-radius: 24px;
+    filter: blur(20px);
+    opacity: 0.6;
+    z-index: -1;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.download-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.download-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   Info Card
+   ============================================ */
+
+.info-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.info-item {
+    flex: 1;
+    text-align: center;
+}
+
+.info-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.info-label i {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+}
+
+.info-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.code-value {
+    font-size: 2rem;
+    color: var(--accent-cyan);
+    letter-spacing: 0.2rem;
+}
+
+.info-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--border-color);
+}
+
+/* Comment Section */
+.comment-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.comment-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.comment-label i {
+    color: var(--primary-500);
+}
+
+.comment-text {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--primary-500);
+    border-radius: 8px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* ============================================
+   Download All Section
+   ============================================ */
+
+.download-all-section {
+    margin-bottom: 3rem;
+}
+
+.download-all-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--white);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    transition: all var(--transition-smooth);
+    overflow: hidden;
+}
+
+.download-all-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.6);
+}
+
+.download-all-icon {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    font-size: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.download-all-content {
+    flex: 1;
+}
+
+.download-all-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.download-all-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.download-all-arrow {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    transition: transform var(--transition-base);
+}
+
+.download-all-btn:hover .download-all-arrow {
+    transform: translateY(5px);
+}
+
+.button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.download-all-btn:hover .button-shine {
+    left: 100%;
+}
+
+/* ============================================
+   Files Section
+   ============================================ */
+
+.files-section {
+    margin-bottom: 3rem;
+}
+
+.files-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.files-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.files-title i {
+    color: var(--primary-500);
+}
+
+.files-count {
+    padding: 0.5rem 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Files List */
+.files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    transition: all var(--transition-base);
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.file-item:hover {
+    border-color: var(--accent-cyan);
+    transform: translateX(10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.file-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-400));
+    border-radius: 14px;
+    font-size: 1.75rem;
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.file-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.file-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.file-meta i {
+    font-size: 0.9rem;
+}
+
+.file-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+    color: var(--white);
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    white-space: nowrap;
+}
+
+.file-download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* ============================================
+   Security Info
+   ============================================ */
+
+.security-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+}
+
+.security-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.security-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-400));
+    border-radius: 12px;
+    font-size: 1.5rem;
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.security-text {
+    flex: 1;
+}
+
+.security-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.security-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* ============================================
+   CTA Section
+   ============================================ */
+
+.cta-section {
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05));
+    border: 2px dashed var(--primary-500);
+    border-radius: 20px;
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.cta-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.125rem 2rem;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
+    color: var(--white);
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+    .download-container {
+        padding: 1rem;
+    }
+
+    .info-row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .info-divider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .download-all-btn {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .download-all-arrow {
+        display: none;
+    }
+
+    .files-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .file-item {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .file-info {
+        width: 100%;
+    }
+
+    .file-download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .security-info {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .cta-section {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+
+    .code-value {
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+    }
+
+    .download-all-title {
+        font-size: 1.25rem;
+    }
+
+    .file-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .file-name {
+        font-size: 0.95rem;
+    }
+
+    .file-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+/* ============================================
+   Mobile Performance Optimizations
+   Применяется ко всем страницам
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Глобальное отключение тяжёлых эффектов */
+    
+    /* 1. Ускоряем все анимации */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.25s !important;
+        transition-duration: 0.2s !important;
+    }
+    
+    /* 2. Отключаем backdrop-filter везде (ОЧЕНЬ тяжёлый) */
+    [style*="backdrop-filter"],
+    .glass-card,
+    .header,
+    .header::before,
+    .mobile-menu-overlay,
+    .footer,
+    .upload-card,
+    .limit-card,
+    .result-section,
+    .qr-code-wrapper,
+    .password-card,
+    .additional-info,
+    .security-info,
+    .download-all-btn {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    /* 3. Упрощаем все тени */
+    * {
+        box-shadow: none !important;
+    }
+    
+    .glass-card,
+    .upload-card,
+    .limit-card,
+    .password-card {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    /* 4. Отключаем gradient orbs анимации */
+    .gradient-orb {
+        animation: none !important;
+        filter: blur(40px) !important;
+        opacity: 0.05 !important;
+    }
+    
+    /* 5. Отключаем grid анимацию */
+    .grid-background {
+        animation: none !important;
+        opacity: 0.3 !important;
+    }
+    
+    /* 6. Упрощаем blur эффекты */
+    [style*="blur"] {
+        filter: blur(10px) !important;
+    }
+    
+    /* 7. Отключаем transform на скролле */
+    .header {
+        transform: none !important;
+    }
+    
+    /* 8. Оптимизация QR кода */
+    .qr-code-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    
+    /* 9. Отключаем сложные градиенты */
+    .gradient-text {
+        background: var(--primary-500) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    
+    /* 10. Оптимизация скролла */
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 11. Отключаем cursor эффекты на мобильных */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+    
+    /* 12. Упрощаем hover эффекты (они не работают на тач) */
+    *:hover {
+        transform: none !important;
+    }
+    
+    /* 13. Оптимизация шрифтов */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeSpeed;
+    }
+}
+
+/* Ещё более агрессивная оптимизация для старых/слабых телефонов */
+@media (max-width: 480px) {
+    /* Упрощаем всё ещё больше */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    /* Только базовые transitions для кнопок */
+    button,
+    a,
+    input {
+        transition: background-color 0.2s ease !important;
+    }
+    
+    /* Отключаем все orbs */
+    .gradient-orb {
+        display: none !important;
+    }
+    
+    /* Упрощаем градиенты до solid цветов */
+    .btn-primary,
+    .download-all-btn,
+    .submit-button,
+    .cta-button {
+        background: var(--primary-600) !important;
+    }
+    
+    .file-icon,
+    .card-icon,
+    .security-icon,
+    .info-icon {
+        background: var(--primary-600) !important;
+    }
+}
+
+/* Особая оптимизация для результата с QR */
+@media (max-width: 768px) {
+    .result-section {
+        /* Используем will-change для оптимизации */
+        will-change: auto !important;
+    }
+    
+    /* Ленивая загрузка для QR кода */
+    .qr-code-image {
+        loading: lazy;
+        decoding: async;
+    }
+    
+    /* Упрощаем анимацию появления результата */
+    @keyframes resultSlideIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    /* Отключаем сложные анимации для файлов */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+/* Отключение анимаций для пользователей с настройкой "prefers-reduced-motion" */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

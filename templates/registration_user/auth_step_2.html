@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Kodni tasdiqlash - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/verify.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Verification Section -->
+<section class="verification-section" data-animate>
+    <div class="verification-container">
+        <!-- Verification Card -->
+        <div class="verification-card" data-animate data-animate-delay="100">
+            <div class="card-glow"></div>
+
+            <!-- Header -->
+            <div class="verification-header">
+                <div class="verification-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="icon-particles">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <h1 class="verification-title">Kodni kiriting</h1>
+                <p class="verification-description">
+                    Kod sizning pochtangizga yuborildi
+                </p>
+            </div>
+
+            <!-- Code Display (if in console) -->
+            <div class="code-notice">
+                <i class="fas fa-terminal"></i>
+                <span>Kod ishlab chiqish uchun konsolga yuborildi</span>
+            </div>
+
+            <!-- Verification Form -->
+            <form method="post" class="verification-form" id="verifyForm">
+                {% csrf_token %}
+
+                <!-- Error Messages -->
+                {% if form.otp.errors %}
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ form.otp.errors.0 }}</span>
+                </div>
+                {% endif %}
+
+                <!-- OTP Input -->
+                <div class="form-group">
+                    <label for="{{ form.otp.id_for_label }}" class="form-label">
+                        <i class="fas fa-key"></i>
+                        Tasdiqlash kodi
+                    </label>
+                    <div class="input-wrapper">
+                        <input
+                            type="text"
+                            name="otp"
+                            id="{{ form.otp.id_for_label }}"
+                            class="code-input"
+                            placeholder="XXXXXX"
+                            maxlength="6"
+                            autocomplete="off"
+                            required
+                            autofocus
+                        />
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Xatdan 6 xonali kodni kiriting</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="verify-button" id="submitBtn">
+                    <span>Akkauntga kirish</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                    <div class="button-shine"></div>
+                </button>
+            </form>
+
+            <!-- Resend Section -->
+            <div class="resend-section">
+
+                <a
+                    href="{% url 'resend_otp' %}"
+                    id="resendLink"
+                    class="resend-link disabled"
+                >
+                    <i class="fas fa-redo"></i>
+                    <span id="resendText">
+                        Qayta yuborish (<span id="seconds">60</span>s)
+                    </span>
+                </a>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="verification-footer">
+                <a href="{% url 'auth_email' %}" class="footer-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Kirishga qaytish
+                </a>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="info-card" data-animate data-animate-delay="200">
+            <div class="info-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>Ikki faktorli autentifikatsiya</h3>
+            <p>Akkauntingiz uchun qo'shimcha xavfsizlik darajasi</p>
+
+            <div class="security-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Kod yuborildi</h4>
+                        <p>Pochtangizni tekshiring</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Kodni kiriting</h4>
+                        <p>6 xonali kodni nusxalang</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Tayyor!</h4>
+                        <p>Akkauntga xavfsiz kirish</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/verify.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ma'lumot - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- Info Section -->
+<section class="info-section" data-animate>
+    <div class="info-container">
+        
+        <!-- Page Header -->
+        <div class="page-header" data-animate data-animate-delay="100">
+            <div class="header-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h1 class="page-title">Ma'lumot markazi</h1>
+            <p class="page-subtitle">
+                TezShare haqida bilish kerak bo'lgan hamma narsa
+            </p>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="quick-nav" data-animate data-animate-delay="200">
+            <a href="#terms" class="nav-item">
+                <i class="fas fa-file-contract"></i>
+                <span>Shartlar</span>
+            </a>
+            <a href="#privacy" class="nav-item">
+                <i class="fas fa-user-shield"></i>
+                <span>Maxfiylik</span>
+            </a>
+            <a href="#security" class="nav-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Xavfsizlik</span>
+            </a>
+            <a href="#contacts" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Kontaktlar</span>
+            </a>
+        </div>
+
+        <!-- Terms Section -->
+        <div id="terms" class="content-section" data-animate data-animate-delay="300">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h2 class="section-title">Foydalanish shartlari</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="content-block">
+                    <h3>1. Umumiy qoidalar</h3>
+                    <p>
+                        TezShare xizmatidan foydalanish orqali, siz ushbu foydalanish shartlariga rozilik bildirasiz.
+                        Xizmat shaxsiy va tijorat maqsadlarida foydalanish uchun "hozirgi holatida" taqdim etiladi.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>2. Foydalanuvchi mas'uliyati</h3>
+                    <p>
+                        Foydalanuvchi xizmatga yuklagan kontent uchun to'liq javobgardir.
+                        Quyidagilarni yuklash taqiqlanadi:
+                    </p>
+                    <ul class="info-list">
+                        <li>Noqonuniy yoki mualliflik huquqi bilan himoyalangan kontent</li>
+                        <li>Zararli dasturiy ta'minot</li>
+                        <li>Uchinchi shaxslar huquqlarini buzadigan materiallar</li>
+                        <li>Noqonuniy xarakterdagi kontent</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>3. Fayllarni saqlash</h3>
+                    <p>
+                        Fayllar yuklangan paytdan boshlab 7 kun davomida serverda saqlanadi.
+                        Muddat tugagandan so'ng fayllar qayta tiklash imkoniyatisiz avtomatik ravishda o'chiriladi.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>4. Cheklovlar</h3>
+                    <ul class="info-list">
+                        <li>Bitta faylning maksimal hajmi: 10 GB</li>
+                        <li>Bir yuklamadagi maksimal fayllar soni: cheklanmagan</li>
+                        <li>Saqlash muddati: 7 kun</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>5. Shartlarni o'zgartirish</h3>
+                    <p>
+                        Biz foydalanish shartlarini istalgan vaqtda o'zgartirish huquqini o'zimizda saqlaymiz.
+                        Xizmatdan foydalanishni davom ettirib, siz shartlarning dolzarb versiyasiga rozilik bildirasiz.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Section -->
+        <div id="privacy" class="content-section" data-animate data-animate-delay="400">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2 class="section-title">Maxfiylik siyosati</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="content-block">
+                    <h3>Ma'lumotlarni to'plash</h3>
+                    <p>
+                        TezShare minimal ma'lumotlar to'plash siyosatiga amal qiladi.
+                        Biz faqat zarur texnik ma'lumotlarni to'playmiz:
+                    </p>
+                    <ul class="info-list">
+                        <li>IP-manzil (suiiste'mollikning oldini olish uchun)</li>
+                        <li>Fayllarni yuklash vaqti</li>
+                        <li>Fayllarning hajmi va soni</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>Ma'lumotlardan foydalanish</h3>
+                    <p>
+                        To'plangan ma'lumotlar faqat quyidagilar uchun ishlatiladi:
+                    </p>
+                    <ul class="info-list">
+                        <li>Xizmatning ishlashini ta'minlash</li>
+                        <li>Suiiste'mollikning oldini olish</li>
+                        <li>Xizmat sifatini yaxshilash</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>Ma'lumotlarni himoya qilish</h3>
+                    <p>
+                        Biz sizning shaxsiy ma'lumotlaringizni <strong>kuzatmaymiz</strong>, 
+                        <strong>sotmaymiz</strong> va <strong>uchinchi shaxslarga uzatmaymiz</strong>.
+                        Barcha fayllar saqlashda shifrlangan.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Cookie-fayllar</h3>
+                    <p>
+                        Biz faqat xizmatning ishlashini ta'minlash uchun minimal miqdordagi 
+                        cookie-fayllardan foydalanamiz (foydalanuvchi seanslari, mavzu sozlamalari).
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Ma'lumotlarni o'chirish</h3>
+                    <p>
+                        Barcha fayllar 7 kundan keyin avtomatik ravishda o'chiriladi.
+                        Siz o'z fayllaringizni "Mening fayllarim" paneli orqali istalgan vaqtda o'chirishingiz mumkin.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Section -->
+        <div id="security" class="content-section" data-animate data-animate-delay="500">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="section-title">Xavfsizlik</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="content-block">
+                    <h3>Shifrlash</h3>
+                    <p>
+                        Barcha fayllar serverda saqlashda 256-bitli AES shifrlash bilan himoyalangan.
+                        Ma'lumotlarni uzatish xavfsiz HTTPS/TLS protokoli orqali amalga oshiriladi.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Noyob kirish kodlari</h3>
+                    <p>
+                        Har bir yuklama noyob 6 xonali kod oladi, uni faqat siz bilasiz.
+                        Bu kodsiz hech kim sizning fayllaringizga kira olmaydi.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Qo'shimcha parol himoyasi</h3>
+                    <p>
+                        Yuqori xavfsizlik uchun fayllaringizga qo'shimcha parol o'rnatishingiz mumkin.
+                        Parol shifrlangan va uni qayta tiklash mumkin emas.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Avtomatik o'chirish</h3>
+                    <p>
+                        Fayllar 7 kundan keyin serverdan avtomatik ravishda o'chiriladi,
+                        bu ruxsatsiz kirishning xavfini minimallashtiradi.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Xavfsizlik bo'yicha tavsiyalar</h3>
+                    <ul class="info-list">
+                        <li>Kirish kodini notanish odamlar bilan bo'lishmang</li>
+                        <li>Muhim fayllar uchun paroldan foydalaning</li>
+                        <li>Yuklab olgandan keyin fayllarni o'chiring</li>
+                        <li>Yuklab olingan fayllarni antivirusda tekshiring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div id="contacts" class="content-section" data-animate data-animate-delay="700">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2 class="section-title">Kontaktlar</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="contacts-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p>mkubaev1230@gmail.com</p>
+                        <a href="mkubaev1230@gmail.com" class="contact-link">
+                            Xat yozish
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram</h3>
+                        <p>@tezshare_bot</p>
+                        <a href="https://t.me/tezshare_bot?start=start"  target="_blank" class="contact-link">
+                            Chatni ochish
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <p>github.com/webr1</p>
+                        <a href="https://github.com/webr1" target="_blank" class="contact-link">
+                            Repozitoriyani ochish
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="feedback-section">
+                    <h3>Muammo haqida xabar berish</h3>
+                    <p>
+                        Agar siz xato topsangiz yoki xizmatni yaxshilash bo'yicha takliflaringiz bo'lsa,
+                        iltimos, biz bilan qulay usulda bog'laning.
+                    </p>
+                    <a href="{% url 'feedback' %}" class="feedback-button">
+                        <i class="fas fa-bug"></i>
+                        <span>Muammo haqida xabar berish</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/info.js' %}"></script>
+{% endblock %}

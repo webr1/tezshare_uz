@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Biz haqimizda - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<section class="about-section" data-animate>
+    <div class="about-container">
+        
+        <div class="page-header" data-animate data-animate-delay="100">
+            <div class="header-icon">
+                <i class="fas fa-info-circle"></i>
+                <div class="icon-particles">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <h1 class="page-title">Loyiha haqida</h1>
+            <p class="page-subtitle">
+                Fayl almashinuviga zamonaviy va xavfsiz yondashuv
+            </p>
+        </div>
+
+        <div class="info-card mission-card" data-animate data-animate-delay="200">
+            <div class="card-decoration"></div>
+            <div class="card-icon-wrapper">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">Bizning maqsadimiz</h2>
+                <p class="card-text">
+                    Ushbu loyiha fayllarni tezkor, qulay va xavfsiz almashish uchun yaratilgan. 
+                    Biz foydalanuvchilarga ortiqcha reklamalar va murakkabliklarsiz xizmat ko'rsatishga intilamiz.
+                </p>
+                <p class="card-text">
+                    Servis minimalist yondashuv bilan ishlab chiqilgan: 
+                    ro'yxatdan o'tish — ixtiyoriy, 
+                    tezkorlik — ustuvorlik, 
+                    maxfiylik — asosiy qadriyat.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-card developer-card" data-animate data-animate-delay="250">
+            <div class="card-decoration" style="background: linear-gradient(45deg, var(--accent-blue), var(--accent-green));"></div>
+            <div class="card-icon-wrapper">
+                <div class="card-icon">
+                    <i class="fas fa-user-code"></i>
+                </div>
+            </div>
+<div class="card-content">
+                <h2 class="card-title">Dasturchi haqida</h2>
+                <p class="card-text">
+                    Men Backend yo'nalishida <strong>1.5 yillik professional tajribaga</strong> ega dasturchiman. 
+                    Faoliyatim davomida Python va Django ekotizimida yuqori yuklamalarga chidamli (high-load), 
+                    modulli va xavfsiz tizimlarni ishlab chiqishga ixtisoslashganman.
+                </p>
+                <p class="card-text">
+                    <strong>TezSend</strong> — bu shunchaki talabalik loyihasi emas, balki zamonaviy backend arxitekturasi, 
+                    kriptografik ma'lumotlarni himoya qilish va asinxron jarayonlarni (Celery/Redis) samarali boshqarish 
+                    bo'yicha to'plagan barcha bilimlarimning natijasidir.
+                </p>
+                <p class="card-text">
+                    Loyihani yaratishda kodning tozaligi (Clean Code), ma'lumotlar xavfsizligi va tizimning 
+                    chaqqon ishlashi men uchun asosiy mezon hisoblanadi.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-card privacy-card" data-animate data-animate-delay="300">
+            <div class="card-decoration"></div>
+            <div class="card-icon-wrapper">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">Maxfiylik siyosati</h2>
+                <p class="card-text">
+                    Biz foydalanuvchilarning shaxsiy ma'lumotlarini kuzatmaymiz, saqlamaymiz 
+                    va uchinchi shaxslarga mutlaqo bermaymiz.
+                </p>
+                <p class="card-text">
+                    Savollar bo'yicha <a href="{% url 'information' %}" class="admin-link">administratorga</a> murojaat qilishingiz mumkin.
+                </p>
+            </div>
+        </div>
+
+        <div class="features-grid" data-animate data-animate-delay="400">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Chaqmoqdek tez</h3>
+                <p>Cheklovlarsiz tezkor yuklash va yuklab olish imkoniyati</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Xavfsiz</h3>
+                <p>256-bitli shifrlash va yuqori darajadagi ma'lumotlar himoyasi</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Maxfiy</h3>
+                <p>Hech qanday kuzatuv va shaxsiy ma'lumotlarni yig'ish yo'qligi</p>
+            </div>
+        </div>
+
+        <div class="support-section" data-animate data-animate-delay="500">
+            <div class="support-card">
+                <div class="support-glow"></div>
+                
+                <div class="support-header">
+                    <div class="support-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h2 class="support-title">Bizni qo'llab-quvvatlang</h2>
+                    <p class="support-description">
+                        Agar loyiha siz uchun foydali bo'lsa va uning rivojlanishiga hissa qo'shmoqchi bo'lsangiz, 
+                        bizni bir finjon kofe bilan mehmon qilishingiz mumkin ☕
+                    </p>
+                </div>
+
+                <div class="payment-card">
+                    <div class="card-chip"></div>
+                    <div class="card-number">5614 6818 1421 0724</div>
+                    <div class="card-shine"></div>
+                </div>
+
+                <p class="support-note">
+                    Donat yuborish ixtiyoriy. Servis barcha foydalanuvchilar uchun bepul bo'lib qoladi.
+                </p>
+
+                <a href="https://buymeacoffee.com/mkubaev24q" target="_blank" class="support-button">
+                    <i class="fas fa-coffee"></i>
+                    <span>Kofe bilan mehmon qilish</span>
+                    <div class="button-shine"></div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/about.js' %}"></script>
+{% endblock %}

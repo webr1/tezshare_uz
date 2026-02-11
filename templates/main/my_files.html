@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mening yuklashlarim - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/my_uploads.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- My Uploads Section -->
+<section class="uploads-section" data-animate>
+    <div class="uploads-container">
+        <!-- Header -->
+        <div class="uploads-header" data-animate data-animate-delay="100">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="header-text">
+                    <h1 class="page-title">Mening yuklashlarim</h1>
+                    <p class="page-description">
+                        Yuklangan fayllaringiz tarixi
+                    </p>
+                </div>
+            </div>
+            <a href="{% url 'main' %}" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Bosh sahifaga</span>
+            </a>
+        </div>
+
+       <div class="stats-grid" data-animate data-animate-delay="200">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-link"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value">{{ batches.count }}</div>
+                    <div class="stat-label">Havolalar</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-file"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value">{{ total_files_count }}</div>
+                    <div class="stat-label">Jami fayllar</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value">{{ password_count }}</div>
+                    <div class="stat-label">Parol bilan</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files List -->
+        {% if batches %}
+        <div class="files-list" data-animate data-animate-delay="300">
+            {% for batch in batches %}
+            <div class="file-card" data-animate data-animate-delay="{{ forloop.counter|add:300 }}">
+                <div class="card-decoration"></div>
+                
+                <div class="file-card-header">
+                    <div class="file-icon-wrapper">
+                        <div class="file-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="file-badge">
+                            {{ batch.files.count }}
+                        </div>
+                    </div>
+                    
+                    <div class="file-details">
+                        <div class="code-wrapper">
+                            <span class="code-label">Kod:</span>
+                            <span class="code-badge" id="code-{{ batch.id }}">
+                                {{ batch.short_code }}
+                            </span>
+                            <button 
+                                class="copy-code-btn" 
+                                onclick="copyCode('{{ batch.short_code }}', {{ batch.id }})"
+                                title="Kodni nusxalash"
+                            >
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="file-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{ batch.created_at|date:"d.m.Y H:i" }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-file"></i>
+                                <span>{{ batch.files.count }} ta fayl</span>
+                            </div>
+                            <div class="meta-item">
+                                {% if batch.password %}
+                                <i class="fas fa-lock"></i>
+                                <span>Parol bilan</span>
+                                {% else %}
+                                <i class="fas fa-lock-open"></i>
+                                <span>Parolsiz</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card-actions">
+                    <a 
+                        href="{% url 'download_page' url_uuid=batch.url_uuid %}" 
+                        class="action-button primary"
+                    >
+                        <span>Ochish</span>
+                        <i class="fas fa-external-link-alt"></i>
+                        <div class="button-shine"></div>
+                    </a>
+                    
+                    <button 
+                        class="action-button secondary"
+                        onclick="shareUpload('{{ batch.short_code }}')"
+                    >
+                        <i class="fas fa-share-alt"></i>
+                        <span>Bo'lishish</span>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Empty State -->
+        <div class="empty-state" data-animate data-animate-delay="300">
+            <div class="empty-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <div class="empty-particles">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <h3>Hozircha yuklashlar yo'q</h3>
+            <p>Fayllarni yuklashni boshlang, ularni bu yerda ko'rish uchun</p>
+            <a href="{% url 'chunk_upload' %}" class="upload-button">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Fayllarni yuklash</span>
+                <div class="button-shine"></div>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Kodni nusxalash funksiyasi
+function copyCode(code, batchId) {
+    // Clipboard API orqali nusxalash
+    navigator.clipboard.writeText(code).then(function() {
+        // Tugma matnini o'zgartirish
+        const btn = event.currentTarget;
+        const icon = btn.querySelector('i');
+        const originalHTML = icon.className;
+        
+        // Muvaffaqiyatli nusxalandi ko'rinishi
+        icon.className = 'fas fa-check';
+        btn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+        
+        // Toast xabar ko'rsatish (agar mavjud bo'lsa)
+        showToast('Kod nusxalandi!', 'success');
+        
+        // 2 soniyadan keyin asl holatga qaytarish
+        setTimeout(function() {
+            icon.className = originalHTML;
+            btn.style.background = '';
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Nusxalashda xatolik:', err);
+        
+        // Fallback: matnni tanlash usuli
+        const codeElement = document.getElementById('code-' + batchId);
+        const range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        
+        try {
+            document.execCommand('copy');
+            showToast('Kod nusxalandi!', 'success');
+        } catch(err) {
+            showToast('Nusxalashda xatolik', 'error');
+        }
+        
+        window.getSelection().removeAllRanges();
+    });
+}
+
+// Yuklashni bo'lishish funksiyasi
+function shareUpload(code) {
+    const url = window.location.origin;
+    const shareText = `TezShare orqali fayllar: ${code}\nKod: ${code}\nHavola: ${url}`;
+    
+    // Web Share API mavjud bo'lsa
+    if (navigator.share) {
+        navigator.share({
+            title: 'TezShare - Fayllar',
+            text: shareText,
+            url: url
+        }).then(() => {
+            showToast('Muvaffaqiyatli bo\'lishildi!', 'success');
+        }).catch((err) => {
+            // Agar bekor qilinsa, clipboard ga nusxalash
+            copyToClipboard(shareText);
+        });
+    } else {
+        // Fallback: clipboardga nusxalash
+        copyToClipboard(shareText);
+    }
+}
+
+// Clipboardga nusxalash yordamchi funksiyasi
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        showToast('Havolaga nusxalandi!', 'success');
+    }).catch(function(err) {
+        console.error('Xatolik:', err);
+        showToast('Nusxalashda xatolik', 'error');
+    });
+}
+
+// Toast xabar ko'rsatish funksiyasi
+function showToast(message, type = 'info') {
+    // Toast elementi yaratish
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    // Toast stilini qo'shish
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)' : type === 'error' ? 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)' : 'linear-gradient(135deg, #2196f3 0%, #1976d2 100%)'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        backdrop-filter: blur(10px);
+    `;
+    
+    // Toast ni sahifaga qo'shish
+    document.body.appendChild(toast);
+    
+    // 3 soniyadan keyin o'chirish
+    setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
+
+// Animatsiya stillari
+if (!document.getElementById('toast-animations')) {
+    const style = document.createElement('style');
+    style.id = 'toast-animations';
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+        
+        .toast i {
+            font-size: 18px;
+        }
+    `;
+    document.head.appendChild(style);
+}
+</script>
+{% endblock %}

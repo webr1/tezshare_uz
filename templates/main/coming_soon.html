@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Coming Soon - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/coming_soon.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- Coming Soon Section -->
+<section class="coming-soon-section">
+    <div class="coming-soon-container">
+        
+        <!-- Animated Background -->
+        <div class="animated-bg">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-wrapper" data-animate>
+            
+            <!-- Icon -->
+            <div class="main-icon" data-animate data-animate-delay="100">
+                <i class="fas fa-rocket"></i>
+            </div>
+
+            <!-- Title -->
+            <h1 class="main-title" data-animate data-animate-delay="200">
+                Tez orada!
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="main-subtitle" data-animate data-animate-delay="300">
+                Biz ushbu sahifani ishlab chiqyapmiz. <br>
+                Yanada yaxshi tajriba uchun biroz kuting!
+            </p>
+
+            <!-- Features Preview -->
+            <div class="features-preview" data-animate data-animate-delay="400">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span>Tezkor</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span>Xavfsiz</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span>Yangi</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container" data-animate data-animate-delay="500">
+                <div class="progress-label">
+                    <span>Tayyorlanish jarayoni</span>
+                    <span class="progress-percent">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="cta-buttons" data-animate data-animate-delay="600">
+                <a href="{% url 'main' %}" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    <span>Bosh sahifa</span>
+                </a>
+                <a href="{% url 'information' %}" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Ma'lumot</span>
+                </a>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links" data-animate data-animate-delay="700">
+                <p>Yangiliklardan xabardor bo'ling:</p>
+                <div class="social-icons">
+                    <a href="https://t.me/tezshare_support" target="_blank" class="social-icon">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://github.com/tezshare" target="_blank" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:support@tezshare.com" class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/coming_soon.js' %}"></script>
+{% endblock %}

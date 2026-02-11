@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 450px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            background: linear-gradient(135deg, #0984E3 0%, #6C5CE7 100%);
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: lowercase; /* Как ты просил для лого */
+        }
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .otp-box {
+            background-color: #f1f2f6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px dashed #0984E3;
+        }
+        .otp-code {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2d3436;
+            letter-spacing: 8px;
+        }
+        .footer {
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #b2bec3;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>tezshare</h1>
+        </div>
+        <div class="content">
+            <h3 style="color: #2d3436;">Tasdiqlash kodi</h3>
+            <p style="color: #636e72;">TezShare platformasiga kirish uchun quyidagi koddni kiriting:</p>
+            
+            <div class="otp-box">
+                <span class="otp-code">{{ otp }}</span>
+            </div>
+            
+            <p style="color: #ff7675; font-size: 13px;">Kod 5 daqiqa davomida amal qiladi.</p>
+        </div>
+        <div class="footer">
+            © 2026 tezshare.uz — xavfsiz fayl almashinuvi.<br>
+            Agar siz ushbu kodni so'ramagan bo'lsangiz, shunchaki xatni o'chirib tashlang.
+        </div>
+    </div>
+</body>
+</html>

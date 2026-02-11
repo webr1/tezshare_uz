@@ -1,0 +1,292 @@
+{% load static %}
+
+<!doctype html>
+<html lang="uz">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}tezshare - Xavfsiz fayl almashish{% endblock %}</title>
+
+
+
+
+        <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon_oi/favicon-96x96.png' %}">
+        <link rel="icon" type="image/svg+xml" href="{% static 'favicon_oi/favicon.svg' %}">
+        <link rel="shortcut icon" href="{% static 'favicon_io/favicon.ico' %}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_oi/apple-touch-icon.png' %}">
+        <meta name="apple-mobile-web-app-title" content="MyWebSite">
+        <link rel="manifest" href="{% static 'favicon_oi/site.webmanifest' %}">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <!-- Main Styles -->
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+        {% block extra_css %}{% endblock %}
+
+        <!-- User Dropdown Fix -->
+   
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
+        <!-- Cursor Follower -->
+        <div class="cursor-dot" data-cursor-dot></div>
+        <div class="cursor-outline" data-cursor-outline></div>
+
+        <!-- Animated Background -->
+        <div class="background-container">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+            <div class="gradient-orb orb-4"></div>
+            <div class="gradient-orb orb-5"></div>
+            <div class="grid-background"></div>
+            <canvas id="particles-canvas"></canvas>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <a href="{% url 'main' %}" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-bolt"></i>
+                        <div class="logo-glow"></div>
+                    </div>
+                    <span class="logo-text">
+                        <span class="logo-main">tez</span><span class="logo-accent">share</span>
+                    </span>
+                </a>
+                
+                <nav class="nav-links">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'my_files' %}" class="nav-link" data-hover="Fayllarim">
+                            <i class="fas fa-folder-open"></i> 
+                            <span>Mening fayllarim</span>
+                        </a>
+                        <a href="{% url 'about' %}" class="nav-link" data-hover="Biz haqimizda">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Biz haqimizda</span>
+                        </a>
+                        <a href="{% url 'obligations' %}" class="nav-link" data-hover="Shartlar">
+                            <i class="fas fa-file-contract"></i>
+                            <span>Shartlar</span>
+                        </a>
+                        
+                        <button class="theme-toggle" aria-label="Mavzuni almashtirish">
+                            <div class="theme-toggle-inner">
+                                <i class="fas fa-sun sun-icon"></i>
+                                <i class="fas fa-moon moon-icon"></i>
+                            </div>
+                        </button>
+                        
+                        <div class="user-menu" id="userMenu">
+                            <button class="user-avatar" id="userAvatar">
+                                <span>{{ user.email.0|upper }}</span>
+                            </button>
+                            <div class="user-dropdown" id="userDropdown">
+                                <div class="user-info">
+                                    <div class="user-name">{{ user.email }}</div>
+                                    <div class="user-status">Pro hisob</div>
+                                </div>
+                                <a href="{% url 'logout' %}" class="dropdown-item danger">
+                                    <i class="fas fa-sign-out-alt"></i> Chiqish
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'about' %}" class="nav-link" data-hover="Biz haqimizda">
+                            <span>Biz haqimizda</span>
+                        </a>
+                        <a href="{% url 'obligations' %}" class="nav-link" data-hover="Shartlar">
+                            <span>Shartlar</span>
+                        </a>
+                        
+                        <button class="theme-toggle" aria-label="Mavzuni almashtirish">
+                            <div class="theme-toggle-inner">
+                                <i class="fas fa-sun sun-icon"></i>
+                                <i class="fas fa-moon moon-icon"></i>
+                            </div>
+                        </button>
+                        
+                        <a href="{% url 'auth_email' %}" class="btn-secondary">
+                            Kirish
+                        </a>
+                        <a href="{% url 'auth_email' %}" class="btn-primary">
+                            <span>Bepul boshlash</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                </nav>
+
+                <button class="mobile-menu-toggle" aria-label="Menyuni ochish">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu-overlay">
+            <nav class="mobile-nav">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'my_files' %}" class="mobile-nav-link">
+                        <i class="fas fa-folder-open"></i> 
+                        <span>Mening fayllarim</span>
+                    </a>
+                    <a href="{% url 'about' %}" class="mobile-nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Biz haqimizda</span>
+                    </a>
+                    <a href="{% url 'obligations' %}" class="mobile-nav-link">
+                        <i class="fas fa-file-contract"></i>
+                        <span>Shartlar</span>
+                    </a>
+                    
+                    <button class="mobile-theme-toggle">
+                        <i class="fas fa-sun"></i>
+                        <span>Yorug' mavzu</span>
+                        <div class="toggle-switch">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </button>
+                    
+                    <a href="{% url 'logout' %}" class="mobile-nav-link danger">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Chiqish</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'about' %}" class="mobile-nav-link">
+                        <span>Biz haqimizda</span>
+                    </a>
+                    <a href="{% url 'obligations' %}" class="mobile-nav-link">
+                        <span>Shartlar</span>
+                    </a>
+                    
+                    <button class="mobile-theme-toggle">
+                        <i class="fas fa-sun"></i>
+                        <span>Yorug' mavzu</span>
+                        <div class="toggle-switch">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </button>
+                    
+                    <a href="{% url 'auth_email' %}" class="mobile-nav-link">
+                        <span>Kirish</span>
+                    </a>
+                    <a href="{% url 'auth_email' %}" class="btn-primary-mobile">
+                        <span>Bepul boshlash</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i class="fas fa-bolt"></i>
+                            <span>TezShare</span>
+                        </div>
+                        <p class="footer-tagline">
+                            Yangi avlodning tez va xavfsiz fayl almashish xizmati
+                        </p>
+                        <div class="footer-social">
+                            <a href="{% url 'coming_soon' %}" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="https://github.com/webr1" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="{% url 'coming_soon' %}" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://t.me/YourBotUsername" class="social-link"><i class="fab fa-telegram"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Mahsulot</h4>
+                            <a href="{% url 'information' %}">Imkoniyatlar</a>
+                            <a href="{% url 'information' %}">Xavfsizlik</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Kompaniya</h4>
+                            <a href="{% url 'about' %}">Biz haqimizda</a>
+                            <a href="{% url 'information' %}">Aloqa</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Yordam</h4>
+                            <a href="https://t.me/@webr_1">Telegram yordam</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2026 TezShare. Barcha huquqlar himoyalangan.</p>
+                    <div class="footer-legal">
+                        <a href="{% url 'information' %}">Maxfiylik</a>
+                        <a href="{% url 'obligations' %}">Shartlar</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scroll to Top -->
+        <button class="scroll-to-top" aria-label="Yuqoriga chiqish">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Scripts -->
+        <script src="{% static 'js/base.js' %}"></script>
+        
+        <!-- User Dropdown Script - Works immediately after registration -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userMenu = document.getElementById('userMenu');
+            const userAvatar = document.getElementById('userAvatar');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (userAvatar && userDropdown) {
+                // Toggle dropdown on click
+                userAvatar.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('active');
+                    }
+                });
+                
+                // Prevent dropdown from closing when clicking inside it
+                userDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+        </script>
+        
+        {% block extra_js %}{% endblock %}
+
+    </body>
+</html>

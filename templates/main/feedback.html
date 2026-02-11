@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Qo'llab-quvvatlash - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/feedback.css' %}" />
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="feedback-container">
+    <div class="feedback-card" data-animate>
+        <div class="feedback-header">
+            <div class="support-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h1>TezShare Qo'llab-quvvatlash</h1>
+            <p>Savolingiz bormi yoki xatolik topdingizmi? Biz aloqadamiz!</p>
+        </div>
+
+        <form method="POST" id="feedbackForm" class="feedback-form">
+            {% csrf_token %}
+            
+            <div class="input-group-custom">
+                <label for="email">Sizning Email manzilingiz</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="email" 
+                           value="{{ request.user.email|default:'' }}" 
+                           placeholder="example@mail.com" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+
+            <div class="input-group-custom">
+                <label for="subject">Murojaat mavzusi</label>
+                <div class="input-wrapper">
+                    <select id="subject" name="subject" required>
+                        <option value="" disabled selected>Mavzuni tanlang</option>
+                        <option value="Yuklash xatosi">Yuklash xatosi</option>
+                        <option value="Parol bilan muammo">Parol bilan muammo</option>
+                        <option value="Yaxshilash taklifi">Yaxshilash taklifi</option>
+                        <option value="Boshqa">Boshqa</option>
+                    </select>
+                    <i class="fas fa-tag"></i>
+                </div>
+            </div>
+
+            <div class="input-group-custom">
+                <label for="message">Xabar</label>
+                <textarea id="message" name="message" rows="5" 
+                          placeholder="Muammoingizni iloji boricha batafsil tasvirlab bering..." 
+                          maxlength="2000" required></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/2000</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>Xabarni yuborish</span>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+</script>
+{% endblock %}

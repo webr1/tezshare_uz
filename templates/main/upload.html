@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Fayllarni yuklash - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/upload.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="upload-container">
+    
+    <!-- Header Section -->
+    <div class="upload-header" data-animate>
+        <div class="header-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <div class="icon-glow"></div>
+        </div>
+        <h1 class="upload-title">Fayllarni yuklash</h1>
+        <p class="upload-subtitle">Yuklash uchun fayllarni tanlang va har kim bilan bo'lishing</p>
+    </div>
+
+    <!-- Limit Info Card -->
+    <div class="limit-card" data-animate data-animate-delay="100">
+        <div class="limit-icon">
+            {% if user.is_authenticated %}
+                <i class="fas fa-user-check"></i>
+            {% else %}
+                <i class="fas fa-user"></i>
+            {% endif %}
+        </div>
+        <div class="limit-content">
+            {% if user.is_authenticated %}
+                <div class="limit-badge premium">
+                    <i class="fas fa-crown"></i>
+                    <span>Premium akkaunt</span>
+                </div>
+                <p class="limit-text">
+                    Sizning limitingiz: <strong>500 MB</strong> har bir fayl uchun
+                </p>
+            {% else %}
+                <div class="limit-badge guest">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Mehmon rejimi</span>
+                </div>
+                <p class="limit-text">
+                    Limit: <strong>200 MB</strong> har bir fayl uchun.
+                    <a href="{% url 'account_login' %}" class="upgrade-link">
+                        Kiring
+                    </a>
+                    500 MB gacha oshirish uchun
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Upload Card -->
+    <div class="upload-card" data-animate data-animate-delay="200">
+        
+        <!-- Drop Zone -->
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-content">
+                <div class="drop-zone-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <h3 class="drop-zone-title">Fayllarni bu yerga tashlang</h3>
+                <p class="drop-zone-text">yoki</p>
+                <label class="drop-zone-button">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Fayllarni tanlang</span>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        onchange="handleFileSelect(this)"
+                        multiple
+                        style="display: none;"
+                    />
+                </label>
+                <p class="drop-zone-hint">
+                    Har qanday turdagi fayllar qo'llab-quvvatlanadi. Rasmlar avtomatik siqiladi.<br>
+                    <strong style="color: var(--text-secondary); font-size: 0.9em;">⚠️ Maksimal fayl hajmi: 1 GB (server barqarorligi uchun)</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- File Queue -->
+        <div id="fileQueue" class="file-queue"></div>
+
+        <!-- Add More Files Button -->
+        <label class="add-more-btn" id="addMoreBtn" style="display: none;">
+            <input
+                type="file"
+                id="fileInputMore"
+                onchange="handleFileSelect(this)"
+                multiple
+                style="display: none;"
+            />
+            <i class="fas fa-plus"></i>
+            <span>Yana fayllar qo'shish</span>
+        </label>
+
+        <!-- Options Section -->
+        <div class="upload-options" id="uploadOptions" style="display: none;">
+            
+            <!-- Password Field -->
+            <div class="option-group">
+                <label class="option-label">
+                    <i class="fas fa-lock"></i>
+                    <span>Parol bilan himoya (ixtiyoriy)</span>
+                </label>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        id="passInput"
+                        class="option-input"
+                        placeholder="Himoya uchun parolni kiriting"
+                    />
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <p class="option-hint">Qabul qiluvchi yuklab olish uchun parolni kiritishi kerak bo'ladi</p>
+            </div>
+
+            <!-- Comment Field -->
+            <div class="option-group">
+                <label class="option-label">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>Izoh (ixtiyoriy)</span>
+                </label>
+                <textarea
+                    id="commInput"
+                    class="option-textarea"
+                    rows="3"
+                    placeholder="Qabul qiluvchi uchun tavsif yoki eslatma qo'shing..."
+                ></textarea>
+                <p class="option-hint">Qabul qiluvchi yuklab olishda bu xabarni ko'radi</p>
+            </div>
+        </div>
+
+        <!-- Create Link Button -->
+        <button
+            onclick="finishBatch()"
+            id="finishBtn"
+            class="finish-button"
+            disabled
+        >
+            <i class="fas fa-link"></i>
+            <span>Havola yaratish (0 ta fayl)</span>
+            <div class="button-shine"></div>
+        </button>
+
+        <!-- Result Section -->
+        <div id="result" class="result-section" style="display: none;">
+            <div class="result-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="result-title">Fayllar muvaffaqiyatli yuklandi!</h3>
+            <p class="result-subtitle">Havola yoki kodni qabul qiluvchi bilan bo'lishing. Fayllar fon rejimida shiflanmoqda.</p>
+            
+            <!-- Short Code Display -->
+            <div class="short-code-container">
+                <div class="short-code-label">Tez kirish uchun kod:</div>
+                <div class="short-code-display" id="shortCodeDisplay">
+                    <span class="short-code-text" id="shortCodeText">------</span>
+                    <button class="short-code-copy" onclick="copyShortCode()" title="Kodni nusxalash">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <p class="short-code-hint">Qabul qiluvchi bu kodni bosh sahifada kiritishi mumkin</p>
+            </div>
+
+            <!-- Link Display -->
+            <div class="result-link-container">
+                <div class="result-link-wrapper">
+                    <a
+                        href=""
+                        id="resLink"
+                        target="_blank"
+                        class="result-link"
+                    ></a>
+                </div>
+                <button class="copy-button" onclick="copyResultLink()">
+                    <i class="fas fa-copy"></i>
+                    <span>Nusxalash</span>
+                </button>
+            </div>
+
+            <!-- QR Code -->
+            <div class="qr-code-container">
+                <div class="qr-code-label">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Tez kirish uchun QR-kod</span>
+                </div>
+                <div class="qr-code-wrapper">
+                    <img id="qrCode" src="" alt="QR Code" class="qr-code-image" />
+                </div>
+                <p class="qr-code-hint">Smartfon kamerasi bilan skanerlang</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="result-actions">
+                <button class="result-action-btn primary" onclick="shareLink()">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Bo'lishish</span>
+                </button>
+                <button class="result-action-btn secondary" onclick="downloadQR()">
+                    <i class="fas fa-download"></i>
+                    <span>QR yuklab olish</span>
+                </button>
+                <button class="result-action-btn secondary" onclick="location.reload()">
+                    <i class="fas fa-plus"></i>
+                    <span>Yana yuklash</span>
+                </button>
+            </div>
+
+            <!-- Info -->
+            <div class="result-info">
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Havola 1 kun faol</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>256-bit shifrlash</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-lock"></i>
+                    <span id="passwordStatus">Parolsiz</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Upload Stats (shown during upload) -->
+    <div id="uploadStats" class="upload-stats" style="display: none;">
+        <div class="stats-item">
+            <div class="stats-label">Yuklangan</div>
+            <div class="stats-value" id="uploadedCount">0</div>
+        </div>
+        <div class="stats-divider"></div>
+        <div class="stats-item">
+            <div class="stats-label">Qolgan</div>
+            <div class="stats-value" id="remainingCount">0</div>
+        </div>
+        <div class="stats-divider"></div>
+        <div class="stats-item">
+            <div class="stats-label">Hajmi</div>
+            <div class="stats-value" id="totalSize">0 MB</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Hidden CSRF Token for JS -->
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+<!-- Hidden URLs for JS -->
+<input type="hidden" id="chunkUploadUrl" value="{% url 'chunk_upload' %}">
+<input type="hidden" id="finalizeBatchUrl" value="{% url 'finalize_batch' %}">
+
+<!-- Hidden Max Size -->
+<input type="hidden" id="maxSize" value="{% if user.is_authenticated %}524288000{% else %}209715200{% endif %}">
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Библиотека для сжатия изображений (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+
+<!-- Наш основной скрипт -->
+<script src="{% static 'js/upload.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+{% load file_filters %}
+
+{% block title %}Fayllarni yuklab olish - tezshare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/download.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="download-container">
+    
+    <!-- Header Section -->
+    <div class="download-header" data-animate>
+        <div class="header-icon">
+            <i class="fas fa-download"></i>
+            <div class="icon-glow"></div>
+        </div>
+        <h1 class="download-title">Fayllarni olish</h1>
+        <p class="download-subtitle">Fayllar yuklab olishga tayyor</p>
+    </div>
+
+    <!-- Info Card -->
+    <div class="info-card" data-animate data-animate-delay="100">
+        <div class="info-row">
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-key"></i>
+                    <span>Kirish kodi</span>
+                </div>
+                <div class="info-value code-value">{{ batch.short_code }}</div>
+            </div>
+            
+            <div class="info-divider"></div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-clock"></i>
+                    <span>Saqlash muddati</span>
+                </div>
+                <div class="info-value">{{ batch.expires_at|date:"d.m.Y H:i" }}</div>
+            </div>
+        </div>
+
+        {% if batch.comment %}
+        <div class="comment-section">
+            <div class="comment-label">
+                <i class="fas fa-comment-alt"></i>
+                <span>Yuboruvchidan izoh:</span>
+            </div>
+            <div class="comment-text">{{ batch.comment }}</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Download All Button -->
+    <div class="download-all-section" data-animate data-animate-delay="200">
+        <a
+            href="{% url 'download_zip' batch.url_uuid %}"
+            class="download-all-btn"
+        >
+            <div class="download-all-icon">
+                <i class="fas fa-file-archive"></i>
+            </div>
+            <div class="download-all-content">
+                <div class="download-all-title">Hammasini bitta arxivda yuklab olish</div>
+                <div class="download-all-subtitle">
+                    {{ batch.files.count }} ta fayl
+                    • ZIP arxiv
+                </div>
+            </div>
+            <div class="download-all-arrow">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="button-shine"></div>
+        </a>
+    </div>
+
+    <!-- Files List -->
+    <div class="files-section" data-animate data-animate-delay="300">
+        <div class="files-header">
+            <h2 class="files-title">
+                <i class="fas fa-folder-open"></i>
+                <span>Fayllar ro'yxati</span>
+            </h2>
+            <div class="files-count">{{ batch.files.count }} ta fayl</div>
+        </div>
+
+        <div class="files-list" id="filesList">
+            {% for file in batch.files.all %}
+            <div class="file-item" data-animate data-animate-delay="{{ forloop.counter|add:3|mul:100 }}">
+                <div class="file-icon">
+                    <i class="{{ file.original_name|file_icon }}"></i>
+                </div>
+                
+                <div class="file-info">
+                    <div class="file-name">{{ file.original_name }}</div>
+                    <div class="file-meta">
+                        <span class="file-size">
+                            <i class="fas fa-hdd"></i>
+                            {{ file.file_size|filesizeformat }}
+                        </span>
+                        {% if file.created_at %}
+                        <span class="file-date">
+                            <i class="fas fa-calendar"></i>
+                            {{ file.created_at|date:"d.m.Y" }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <a
+                    href="{% url 'decrypt_file' file.id %}"
+                    class="file-download-btn"
+                    download
+                >
+                    <i class="fas fa-download"></i>
+                    <span>Yuklab olish</span>
+                </a>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Fayllar topilmadi</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Security Info -->
+    <div class="security-info" data-animate data-animate-delay="400">
+        <div class="security-item">
+            <div class="security-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="security-text">
+                <div class="security-title">256-bit shifrlash</div>
+                <div class="security-description">Fayllar uzatishda himoyalangan</div>
+            </div>
+        </div>
+
+        <div class="security-item">
+            <div class="security-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="security-text">
+                <div class="security-title">Avto-o'chirish</div>
+                <div class="security-description">Fayllar muddat tugagandan keyin o'chiriladi</div>
+            </div>
+        </div>
+
+        <div class="security-item">
+            <div class="security-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="security-text">
+                <div class="security-title">Maxfiylik</div>
+                <div class="security-description">Faqat sizda havola bor</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Your Files CTA -->
+    <div class="cta-section" data-animate data-animate-delay="500">
+        <div class="cta-content">
+            <h3 class="cta-title">O'z fayllaringizni yubormoqchimisiz?</h3>
+            <p class="cta-description">Fayllarni tez va xavfsiz yuklang va bo'lishing</p>
+            <a href="{% url 'chunk_upload' %}" class="cta-button">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Fayllarni yuklash</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/download.js' %}"></script>
+{% endblock %}

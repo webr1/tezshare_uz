@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}tezshare - Tez fayl almashish{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ message }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Hero Section -->
+<section class="hero-section" data-animate>
+    <div class="hero-content">
+        <h1 class="hero-title" data-animate data-animate-delay="200">
+            Tez fayl almashish
+            <span class="gradient-text">chegarasiz</span>
+        </h1>
+
+        <p class="hero-description" data-animate data-animate-delay="300">
+            Fayllarni yuklang, noyob kod oling va xohlagan kishiga yuboring.
+            <br />Ro'yxatdan o'tishsiz, cheklovsiz.
+        </p>
+
+        <div class="hero-stats" data-animate data-animate-delay="400">
+            <div class="stat-item">
+                <div class="stat-number">1GB</div>
+                <div class="stat-label">Maks. hajm</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">256-bit</div>
+                <div class="stat-label">Shifrlash</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">7 kun</div>
+                <div class="stat-label">Saqlash</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Actions Section -->
+<section class="actions-section">
+    <div class="actions-grid">
+        <!-- Upload Card -->
+        <div class="action-card upload-card" data-animate data-animate-delay="100">
+            <div class="card-glow upload-glow"></div>
+            <div class="card-header">
+                <div class="card-icon upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div class="icon-particles">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <h2 class="card-title">Fayllarni yuborish</h2>
+                <p class="card-description">
+                    Fayllarni yuklang va xavfsiz kirish uchun maxfiy 6 raqamli kod oling
+                </p>
+            </div>
+
+            <div class="card-features">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Bir vaqtning o'zida 1 GB gacha</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Ko'plab fayllar</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Tezkor yuklash</span>
+                </div>
+            </div>
+
+            <a href="{% url 'chunk_upload' %}" class="card-button upload-button">
+                <span>Yuklashni boshlash</span>
+                <i class="fas fa-arrow-right"></i>
+                <div class="button-shine"></div>
+            </a>
+        </div>
+
+        <!-- Download Card -->
+        <div class="action-card download-card" data-animate data-animate-delay="200">
+            <div class="card-glow download-glow"></div>
+            <div class="card-header">
+                <div class="card-icon download-icon">
+                    <i class="fas fa-download"></i>
+                    <div class="icon-particles">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <h2 class="card-title">Fayllarni olish</h2>
+                <p class="card-description">
+                    Fayllarni topish va yuklab olish uchun 6 raqamli kodni kiriting
+                </p>
+            </div>
+
+            <form id="codeForm" class="code-form" method="GET" action="{% url 'main' %}">
+                <div class="code-input-wrapper">
+                    <input
+                        type="text"
+                        id="shortCode"
+                        name="code"
+                        placeholder="XXXXXX"
+                        maxlength="6"
+                        class="code-input"
+                        required
+                        autocomplete="off"
+                        value="{{ request.GET.code|default:'' }}"
+                    />
+                    <div class="input-border"></div>
+                </div>
+
+                <button type="submit" class="card-button download-button">
+                    <span>Fayllarni topish</span>
+                    <i class="fas fa-search"></i>
+                    <div class="button-shine"></div>
+                </button>
+            </form>
+
+            <div class="card-hint">
+                <i class="fas fa-info-circle"></i>
+                <span>Kod 6 ta belgidan iborat (harflar va raqamlar)</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" data-animate data-animate-delay="300">
+    <div class="section-header">
+        <h2 class="section-title">Nega TezShare?</h2>
+        <p class="section-description">
+            Xavfsizlik va tezlikka e'tibor bilan zamonaviy fayl almashish yondashuvi
+        </p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card" data-animate data-animate-delay="100">
+            <div class="feature-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>Xavfsizlik</h3>
+            <p>
+                Har bir yuklash uchun 256-bitli shifrlash va noyob kirish kodlari
+            </p>
+        </div>
+
+        <div class="feature-card" data-animate data-animate-delay="200">
+            <div class="feature-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h3>Tezlik</h3>
+            <p>
+                Katta fayllarni qo'llab-quvvatlash bilan optimallashtirilgan yuklash va yuklab olish
+            </p>
+        </div>
+
+        <div class="feature-card" data-animate data-animate-delay="300">
+            <div class="feature-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Maxfiylik</h3>
+            <p>
+                Ro'yxatdan o'tish shart emas, fayllar 7 kundan keyin avtomatik o'chiriladi
+            </p>
+        </div>
+
+        <div class="feature-card" data-animate data-animate-delay="400">
+            <div class="feature-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <h3>Mavjudlik</h3>
+            <p>Istalgan qurilmada, istalgan joyda, istalgan vaqtda ishlaydi</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section" data-animate>
+    <div class="section-header">
+        <h2 class="section-title">Bu qanday ishlaydi?</h2>
+        <p class="section-description">
+            Xavfsiz fayl almashish uchun uchta oddiy qadam
+        </p>
+    </div>
+
+    <div class="steps-container">
+        <div class="step-item" data-animate data-animate-delay="100">
+            <div class="step-number">01</div>
+            <div class="step-content">
+                <div class="step-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Fayllarni yuklang</h3>
+                <p>Kompyuteringizdan fayllarni tanlang yoki brauzer oynasiga sudrab oling</p>
+            </div>
+            <div class="step-connector"></div>
+        </div>
+
+        <div class="step-item" data-animate data-animate-delay="200">
+            <div class="step-number">02</div>
+            <div class="step-content">
+                <div class="step-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3>Kod oling</h3>
+                <p>
+                    Tizim fayllarga kirish uchun noyob 6 raqamli kod yaratadi
+                </p>
+            </div>
+            <div class="step-connector"></div>
+        </div>
+
+        <div class="step-item" data-animate data-animate-delay="300">
+            <div class="step-number">03</div>
+            <div class="step-content">
+                <div class="step-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3>Kodni ulashing</h3>
+                <p>Kodni qabul qiluvchiga qulay usulda yuboring</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" data-animate>
+    <div class="cta-content">
+        <h2 class="cta-title">Boshlashga tayyormisiz?</h2>
+        <p class="cta-description">
+            TezShare'dan foydalanayotgan minglab foydalanuvchilarga qo'shiling
+        </p>
+        <div class="cta-buttons">
+            <a href="{% url 'chunk_upload' %}" class="cta-button primary">
+                <span>Fayllarni yuklash</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="https://t.me/tezshare_bot?start=start" target="_blank" class="cta-button secondary">
+                <i class="fab fa-telegram-plane" style="margin-right: 8px;"></i>
+                <span>TEZSHARE_AI</span>
+            </a>
+        </div>
+    </div>  
+    <div class="cta-visual">
+        <div class="floating-card card-1">
+            <i class="fas fa-file-image"></i>
+            <span>rasm.jpg</span>
+        </div>
+        <div class="floating-card card-2">
+            <i class="fas fa-file-pdf"></i>
+            <span>hujjat.pdf</span>
+        </div>
+        <div class="floating-card card-3">
+            <i class="fas fa-file-archive"></i>
+            <span>arxiv.zip</span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
