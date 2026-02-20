@@ -54,23 +54,6 @@
 — **Infrastructure:** Docker & Docker Compose, Nginx (Reverse Proxy), SSL (Let's Encrypt).
 
 ---
-
-## 🏗 Архитектура проекта
-
-```text
-tezshare_uz/
-├── apps/
-│   ├── authentication/   # Обработка Google OAuth и OTP логики
-│   ├── storage/          # Ядро системы: загрузка, шифрование и удаление
-│   └── users/            # Профили пользователей и Dashboard
-├── core/                 # Основные настройки проекта (settings.py, urls.py)
-├── static/               # Tailwind CSS, JS, Images
-├── templates/            # Адаптивные HTML шаблоны
-├── docker-compose.yml    # Настройка всей инфраструктуры (Web, DB, Nginx)
-└── .env.example          # Конфигурация API ключей и доступов
-
-```
-
 ---
 
 ## 🚀 Быстрый запуск (Installation)
