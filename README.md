@@ -88,7 +88,7 @@ docker-compose up -d --build
 
 ```
 
-
+.env file 
 
 # --- Основные настройки Django ---
 SECRET_KEY=ваш_очень_длинный_секретный_ключ
